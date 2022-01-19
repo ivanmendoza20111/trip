@@ -6,7 +6,6 @@ import { CreateTripDto } from './dto/create-trip.dto';
 import { ReadingDto } from './dto/reading.dto';
 import { ReadingsDto } from './dto/readings.dto';
 import { Location } from './class/location-reading.class';
-import { time } from 'console';
 import { FilterParams } from './class/params.class';
 
 @Injectable()
@@ -70,7 +69,7 @@ export class TripService {
         
         const createTripDto = new CreateTripDto();
         createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: '' };
-        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: '' };;
+        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: '' };
         createTripDto.distance = distance;
         createTripDto.duration = duration;
         createTripDto.overspeedsCount = overspeedsCount;
