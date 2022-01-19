@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CreateTripDto } from './dto/create-trip.dto';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { FilterParams } from './class/params.class';
+import { ReadingDto } from './dto/reading.dto';
+import { ReadingsDto } from './dto/readings.dto';
 import { Trip } from './schemas/trip.schema';
 import { TripService } from './trip.service';
 
@@ -11,12 +13,12 @@ export class TripController {
     ) {}
 
     @Get()
-    async findAll(): Promise<Trip[]> {
-        return this.tripService.findAll();
+    async findAll(@Query() query: FilterParams): Promise<Trip[]> {
+        return this.tripService.findAll(query);
     }
 
     @Post()
-    async create(@Body() createTripDto: CreateTripDto): Promise<Trip> {
-        return this.tripService.create(createTripDto);
+    async create(@Body() readingsDto: ReadingsDto): Promise<Trip> {
+        return this.tripService.create(readingsDto);
     }
 }
