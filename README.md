@@ -12,13 +12,16 @@ API para registrar viajes
 - [NPM](https://www.npmjs.com/) package manager
 - [Nest](https://nestjs.com/) framework
 
-#### Clonar repositorio en rama master
+#### Clonar repositorio en su ordenador
 
 **HTTPS:**
 
 ```bash
-$ git clone -b 
+$ git clone https://github.com/ivanmendoza20111/trip.git
 ```
+
+Luego debemos clonar el archivo **.env.example** a **.env**. Dentro de **.env** debemos definir el **PORT** que vamos a utilizar y la URL de nuestro **MONGO DB**
+
 
 ## Usar nuestro proyecto con Docker
 
@@ -58,6 +61,12 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Uso del API
+Para poder ver la documentacion de nuestra API vamos a la siguiente ruta en nuestro navegador:
+```
+
 ```
 
 ## License

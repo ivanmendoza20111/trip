@@ -1,5 +1,5 @@
 import { AddressTrip } from "../class/addres-trip.class";
-import { Location } from "../class/location-reading.class";
+import { LocationDto } from "../class/location-reading.class";
 
 export class CreateTripDto {
     start: AddressTrip;
@@ -7,5 +7,5 @@ export class CreateTripDto {
     distance: number;
     duration: number;
     overspeedsCount: number;
-    boundingBox: Location[];
+    boundingBox: LocationDto[];
 }

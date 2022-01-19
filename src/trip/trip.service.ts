@@ -5,7 +5,7 @@ import { Model } from 'mongoose';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { ReadingDto } from './dto/reading.dto';
 import { ReadingsDto } from './dto/readings.dto';
-import { Location } from './class/location-reading.class';
+import { LocationDto } from './class/location-reading.class';
 import { FilterParams } from './class/params.class';
 
 @Injectable()
@@ -65,7 +65,7 @@ export class TripService {
 
         let overspeedsCount: number = 0;
         readingsDto.readings.forEach((r) => { if(r.speed > r.speedLimit) { overspeedsCount++; } });
-        const boundingBox: Location[] = readingsDto.readings.map(r => r.location);
+        const boundingBox: LocationDto[] = readingsDto.readings.map(r => r.location);
         
         const createTripDto = new CreateTripDto();
         createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: '' };

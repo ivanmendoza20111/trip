@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Location } from '../class/location-reading.class';
+import { LocationDto } from '../class/location-reading.class';
 
 export type ReadingDocument = Reading & Document;
 
@@ -16,7 +16,7 @@ export class Reading {
   speedLimit: number;
 
   @Prop()
-  location: Location;
+  location: LocationDto;
 }
 
 export const ReadingSchema = SchemaFactory.createForClass(Reading);
