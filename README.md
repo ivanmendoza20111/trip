@@ -4,7 +4,7 @@
 
 API para registrar viajes
 
-## Dependencas
+## Dependencias
 
 - [Git](https://git-scm.com/) Control Version
 - [Docker](https://docs.docker.com/get-docker/) container and image manager
@@ -20,7 +20,7 @@ API para registrar viajes
 $ git clone https://github.com/ivanmendoza20111/trip.git
 ```
 
-Luego debemos clonar el archivo **.env.example** a **.env**. Dentro de **.env** debemos definir el **PORT** que vamos a utilizar y la URL de nuestro **MONGO DB**
+Luego debemos clonar el archivo **.env.example** a **.env**. Dentro de **.env** debemos definir la URL de nuestro **MONGO DB**
 
 
 ## Usar nuestro proyecto con Docker
@@ -66,7 +66,7 @@ $ npm run test:cov
 ## Uso del API
 Para poder ver la documentacion de nuestra API vamos a la siguiente ruta en nuestro navegador:
 ```
-
+    http:localhost:3000/doc/
 ```
 
 ## License
