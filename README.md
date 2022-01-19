@@ -66,7 +66,7 @@ $ npm run test:cov
 ## Uso del API
 Para poder ver la documentacion de nuestra API vamos a la siguiente ruta en nuestro navegador:
 ```
-    http:localhost:3000/doc/
+http:localhost:3000/doc/
 ```
 
 ## License
