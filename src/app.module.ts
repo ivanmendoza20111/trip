@@ -3,9 +3,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TripModule } from './trip/trip.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import {ConfigModule} from '@nestjs/config';
+import configuration from './config/configuration';
 
 @Module({
-  imports: [TripModule, MongooseModule.forRoot('mongodb+srv://root:tRwgn8LX@cluster0.n1ks3.mongodb.net/trip?retryWrites=true&w=majority')],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+    }),
+    TripModule, 
+    MongooseModule.forRoot(process.env.MONGO_DB_URL)
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
