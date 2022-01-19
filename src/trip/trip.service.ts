@@ -13,6 +13,11 @@ export class TripService {
 
     constructor(@InjectModel(Trip.name) private tripModel: Model<TripDocument>) {}
 
+    /**
+     * Get all Trips
+     * @param params FilterParams
+     * @returns Promise<Trip[]>
+     */
     async findAll(params: FilterParams): Promise<Trip[]> {
         const { start_gte, start_lte, distance_gt } = params;
         const limit = params.limit || 20;
@@ -43,6 +48,11 @@ export class TripService {
         return await query.exec();
     }
 
+    /**
+     * Create a Trip
+     * @param readingsDto: ReadingsDto
+     * @returns Promise<Trip>
+     */
     async create(readingsDto: ReadingsDto): Promise<Trip> {
         
         if(readingsDto.readings.length < 5) {
@@ -76,5 +86,6 @@ export class TripService {
         createTripDto.boundingBox = boundingBox;
 
         return await new this.tripModel(createTripDto).save();
+
     }
 }
