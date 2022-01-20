@@ -76,7 +76,7 @@ export class TripService {
         let duration: number = end.time - start.time;
 
         // calculo de la distancia 
-        let distance: number = 0;
+        let distance: number = this.getKilometros(start.location.lat, start.location.lon, end.location.lat, end.location.lon);
 
         let overspeedsCount: number = 0;
         readingsDto.readings.forEach((r) => { if(r.speed > r.speedLimit) { overspeedsCount++; } });
@@ -114,5 +114,19 @@ export class TripService {
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    /**
+     * Calcular Kilometros
+     */
+    getKilometros(lat1: number,lon1: number,lat2: number,lon2: number): any {
+        const rad = function(x) {return x*Math.PI/180;}
+        let R = 6378.137; //Radio de la tierra en km
+        let dLat = rad( lat2 - lat1 );
+        let dLong = rad( lon2 - lon1 );
+        let a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        let d = R * c;
+        return parseFloat(d.toFixed(3)); //Retorna tres decimales
     }
 }
