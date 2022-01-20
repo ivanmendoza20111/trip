@@ -80,7 +80,10 @@ export class TripService {
 
         let overspeedsCount: number = 0;
         readingsDto.readings.forEach((r) => { if(r.speed > r.speedLimit) { overspeedsCount++; } });
-        const boundingBox: LocationDto[] = readingsDto.readings.map(r => r.location);
+
+        // BoudingBox
+        const BoundingBox = require('boundingbox');
+        const bbox = new BoundingBox({minlat: start.location.lat, minlon: start.location.lon, maxlat: end.location.lat, maxlon: end.location.lon});
         
         // get Address
         const startAddress = await this.getAddress(start.location.lat, start.location.lon);
@@ -94,7 +97,7 @@ export class TripService {
         createTripDto.overspeedsCount = overspeedsCount;
 
         // get boundingBox
-        createTripDto.boundingBox = boundingBox;
+        createTripDto.boundingBox = bbox.toGeoJSON().geometry.coordinates;;
         
         return await new this.tripModel(createTripDto).save();
     }

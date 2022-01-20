@@ -7,5 +7,5 @@ export class CreateTripDto {
     distance: number;
     duration: number;
     overspeedsCount: number;
-    boundingBox: LocationDto[];
+    boundingBox: [];
 }
