@@ -5,6 +5,7 @@ import { TripModule } from './trip/trip.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
 import configuration from './config/configuration';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import configuration from './config/configuration';
       load: [configuration],
     }),
     TripModule, 
-    MongooseModule.forRoot(process.env.MONGO_DB_URL)
+    HttpModule,
+    MongooseModule.forRoot(process.env.MONGO_DB_URL),
   ],
   controllers: [AppController],
   providers: [AppService],

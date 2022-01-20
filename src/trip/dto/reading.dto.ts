@@ -12,7 +12,7 @@ export class ReadingDto {
 
     @IsNotEmpty()
     @ValidateNested()
-    @Type(() => Location)
+    @Type(() => LocationDto)
     @ApiProperty({ type: LocationDto})
     location: LocationDto;
 

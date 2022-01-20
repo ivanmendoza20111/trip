@@ -7,11 +7,17 @@ import { ReadingDto } from './dto/reading.dto';
 import { ReadingsDto } from './dto/readings.dto';
 import { LocationDto } from './class/location-reading.class';
 import { FilterParams } from './class/params.class';
+import { Address } from './dto/address.dto';
+import { HttpService } from '@nestjs/axios';
+import { map } from 'rxjs';
 
 @Injectable()
 export class TripService {
 
-    constructor(@InjectModel(Trip.name) private tripModel: Model<TripDocument>) {}
+    constructor(
+        @InjectModel(Trip.name) private tripModel: Model<TripDocument>,
+        private httpService: HttpService
+    ) {}
 
     /**
      * Get all Trips
@@ -69,7 +75,6 @@ export class TripService {
 
         let duration: number = end.time - start.time;
 
-        // conseguir address a traves de un api con la lat y longitud
         // calculo de la distancia 
         let distance: number = 0;
 
@@ -77,15 +82,37 @@ export class TripService {
         readingsDto.readings.forEach((r) => { if(r.speed > r.speedLimit) { overspeedsCount++; } });
         const boundingBox: LocationDto[] = readingsDto.readings.map(r => r.location);
         
+        // get Address
+        const startAddress = await this.getAddress(start.location.lat, start.location.lon);
+        const endAddress = await this.getAddress(end.location.lat, end.location.lon);
+        
         const createTripDto = new CreateTripDto();
-        createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: '' };
-        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: '' };
+        createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: startAddress.display_name };
+        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: endAddress.display_name };
         createTripDto.distance = distance;
         createTripDto.duration = duration;
         createTripDto.overspeedsCount = overspeedsCount;
+
+        // get boundingBox
         createTripDto.boundingBox = boundingBox;
-
+        
         return await new this.tripModel(createTripDto).save();
+    }
 
+    /**
+     * Return info Address
+     * @param lat number
+     * @param lon number
+     * @returns Promise<Address>
+     */
+    async getAddress(lat: number, lon: number): Promise<Address> {
+        const url = `https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=${lat}&&lon=${lon}`;
+        return await this.httpService
+            .get(url)
+            .pipe(map((res) => res.data))
+            .toPromise()
+            .catch((err) => {
+                console.log(err);
+            });
     }
 }
