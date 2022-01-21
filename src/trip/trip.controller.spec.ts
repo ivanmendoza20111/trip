@@ -8,7 +8,7 @@ describe('TripController', () => {
   let tripService: TripService;
 
   beforeEach(async () => {
-    tripService = new TripService(null);
+    tripService = new TripService(null, null);
     tripController = new TripController(tripService);
   });
 

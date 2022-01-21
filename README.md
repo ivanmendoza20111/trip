@@ -57,6 +57,11 @@ $ npm run start:prod
 $ npm run test
 ```
 
+## Para usar nuestra api tenemos que ir a la siguiente URL en postman:
+```
+http:localhost:3000/api/
+```
+
 ## Uso del API
 Para poder ver la documentacion de nuestra API vamos a la siguiente ruta en nuestro navegador:
 ```

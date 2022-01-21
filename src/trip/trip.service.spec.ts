@@ -5,7 +5,7 @@ describe('TripService', () => {
   let tripService: TripService;
 
   beforeEach(async () => {
-    tripService = new TripService(null);
+    tripService = new TripService(null, null);
   });
 
   describe('findAll', () => {
