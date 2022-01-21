@@ -90,14 +90,14 @@ export class TripService {
         const endAddress = await this.getAddress(end.location.lat, end.location.lon);
         
         const createTripDto = new CreateTripDto();
-        createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: startAddress.display_name };
-        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: endAddress.display_name };
+        createTripDto.start = { time: start.time, lat: start.location.lat, lon: start.location.lon, address: startAddress?.display_name || '' };
+        createTripDto.end = { time: end.time, lat: end.location.lat, lon: end.location.lon, address: endAddress?.display_name || '' };
         createTripDto.distance = distance;
         createTripDto.duration = duration;
         createTripDto.overspeedsCount = overspeedsCount;
 
         // get boundingBox
-        createTripDto.boundingBox = bbox.toGeoJSON().geometry.coordinates;;
+        createTripDto.boundingBox = bbox.toGeoJSON().geometry?.coordinates || [];
         
         return await new this.tripModel(createTripDto).save();
     }
